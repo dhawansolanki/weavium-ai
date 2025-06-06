@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+"""
+Command-line script for the Autogen Agents Framework.
+"""
+
+import os
+import sys
+from pathlib import Path
+
+# Add the parent directory to the Python path
+sys.path.append(str(Path(__file__).parent))
+
+from src.cli import main
+
+if __name__ == "__main__":
+    main()

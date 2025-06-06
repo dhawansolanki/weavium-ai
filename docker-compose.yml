@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  autogen-framework:
+    build: .
+    volumes:
+      - .:/app
+      - ./data:/app/data
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    command: python -m examples.basic_conversation
+    restart: unless-stopped
+
+  # Optional: Add a database service if needed for memory persistence
+  # db:
+  #   image: postgres:14
+  #   environment:
+  #     POSTGRES_USER: autogen
+  #     POSTGRES_PASSWORD: autogen
+  #     POSTGRES_DB: autogen
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+# volumes:
+#   postgres_data:
