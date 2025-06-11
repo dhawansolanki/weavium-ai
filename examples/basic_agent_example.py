@@ -45,14 +45,17 @@ def main():
     )
     logger.info("Created assistant agent")
     
+    from src.agents.user_proxy_agent import UserProxyAgent
+    
     # Create a user proxy agent
-    user_proxy = framework.create_agent(
-        agent_type="user_proxy",
+    user_proxy = UserProxyAgent(
         name="UserProxy",
         description="A proxy for the human user",
         system_message="You are a proxy for the human user. You help facilitate the conversation.",
-        human_input_mode="NEVER"  # Don't require human input for this example
+        human_input_mode="ALWAYS",
+        tools=framework.tool_registry.get_tool_dicts()
     )
+    framework.agents[user_proxy.name] = user_proxy
     logger.info("Created user proxy agent")
     
     # Initiate a conversation
