@@ -64,7 +64,11 @@ def main():
         )
         context7_client = Context7Client(context7_config)
         context7_tools = context7_client.create_autogen_tools()
-        framework.register_mcp_server(context7_config)
+        framework.register_mcp_server(
+            name=context7_config.name,
+            endpoint=context7_config.endpoint,
+            api_key=context7_config.api_key
+        )
         logger.info("Registered Context7 MCP server")
     else:
         context7_tools = []
