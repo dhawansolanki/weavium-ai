@@ -181,4 +181,11 @@ class GroupChatManager:
         if group_chat is None:
             raise ValueError(f"Group chat not found: {group_chat_name}")
         
-        group_chat.initiate_chat(manager, message)
+        # Get the manager agent (unwrap if it's our BaseAgent)
+        manager_agent = manager.agent if isinstance(manager, BaseAgent) else manager
+        
+        # Start a chat with the first agent in the group
+        if group_chat.autogen_agents:
+            # Use the first agent as a proxy to start the conversation
+            first_agent = group_chat.autogen_agents[0]
+            manager_agent.initiate_chat(first_agent, message=message)
